@@ -23,14 +23,14 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields) #create_user 를 하는데, 관리자 권한 On 되어 있는 상태에서 생성
 
 class User(AbstractBaseUser, PermissionsMixin):
-    idx = models.AutoField(primary_key=True) #인덱스
+    idx = models.AutoField(primary_key=True, unique=True) #인덱스
     email = models.EmailField(unique=True) #이메일, 아이디로 사용
     name = models.CharField(max_length=50) #이름
     phone = models.CharField(max_length=15) #핸드폰 번호
     birthdate = models.DateField() #생년월일
     addr = models.CharField(max_length=50) #주소
     sex = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')]) #성별
-    user_type = models.CharField(max_length=10, choices=[('enterprise', 'Enterprise'), ('individual', 'Individual')]) #유저 등급
+    user_type = models.CharField(max_length=10, choices=[('e', 'Enterprise'), ('i', 'Individual')]) #유저 등급
     nickname = models.CharField(max_length=8, unique=True) #닉네임, 별명
     password = models.CharField(max_length=100)  # 비밀번호
 
