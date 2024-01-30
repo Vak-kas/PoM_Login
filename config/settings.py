@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    'signup',
 ]
 
 REST_FRAMEWORK = {
@@ -130,5 +131,5 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# AUTH_USER_MODEL = 'signup.User'
+AUTH_USER_MODEL = 'signup.User'
 
