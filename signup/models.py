@@ -16,11 +16,15 @@ class UserManager(BaseUserManager):
 
     # 관리자 권한을 가진 사용자 생성하는 기능
     def create_superuser(self, email, password=None, **extra_fields):
-        #email, password, extra_field를 인자로 받으며, 내부적으로 create_user매서드 호출
-        extra_fields.setdefault('is_staff', True) #is_staff 기능 True
-        extra_fields.setdefault('is_superuser', True) #슈퍼유저에게 모든 권한을 부여
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
-        return self.create_user(email, password, **extra_fields) #create_user 를 하는데, 관리자 권한 On 되어 있는 상태에서 생성
+        # 필수 필드에 대한 기본값 설정
+        extra_fields.setdefault('birthdate', '1990-01-01')
+        extra_fields.setdefault('name', 'Admin')
+        extra_fields.setdefault('nickname', 'admin')
+
+        return self.create_user(email, password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     idx = models.AutoField(primary_key=True, unique=True) #인덱스
@@ -37,6 +41,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name', 'nickname']  # createsuperuser 관리 명령 사용할 때 추가로 입력 요구하는 필드
 
+    is_staff = models.BooleanField(default=False)
     objects = UserManager()
 
     def __str__(self):

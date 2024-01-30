@@ -6,6 +6,6 @@ from . import views
 
 
 urlpatterns = [
-    path('/', views.index),
+    path('test/', views.index),
     path('signup/', CreateUserAPIView.as_view(), name='signup'),
 ]
