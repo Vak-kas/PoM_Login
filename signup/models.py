@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
-    idx = models.AutoField(primary_key=True, unique=True) #인덱스
+    id = models.AutoField(primary_key=True, unique=True) #인덱스
     email = models.EmailField(unique=True) #이메일, 아이디로 사용
     name = models.CharField(max_length=50) #이름
     phone = models.CharField(max_length=15) #핸드폰 번호
