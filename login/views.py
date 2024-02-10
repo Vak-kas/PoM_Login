@@ -47,6 +47,7 @@ def user_info(request):
     user_info = {
         'email': user.email,
         'nickname': user.nickname,
+        'id' : user.id,
         # 필요한 추가 정보 포함
     }
 
