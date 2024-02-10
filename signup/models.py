@@ -50,6 +50,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Enterprise(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     company_name = models.CharField(max_length=100) #회사명
+    company_code = models.CharField(max_length = 100, unique=True, null = True, blank=True) #회사 코드
     department = models.CharField(max_length=100) #부서
     position = models.CharField(max_length=100) #직책
 
