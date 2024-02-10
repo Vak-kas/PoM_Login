@@ -11,10 +11,15 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 import hashlib
 import base64
+import json
 
 from django.http import JsonResponse
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
+
+
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 # Create your views here.
@@ -26,9 +31,13 @@ class CreateUserAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
+@csrf_exempt
 def email_verify(request):
-    email = request.POST.get('email')
+    data = json.loads(request.body)
+    email = data.get('email')
+    if email is None:
+        return JsonResponse({'error': '이메일 주소가 제공되지 않았습니다.'}, status=400)
+
     if User.objects.filter(email=email).exists():
         return JsonResponse({'error': '이미 사용 중인 이메일입니다.'}, status=400)
 
