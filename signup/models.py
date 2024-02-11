@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     birthdate = models.DateField() #생년월일
     addr = models.CharField(max_length=50) #주소
     sex = models.CharField(max_length=1, choices=[('M', 'Male'), ('F', 'Female')]) #성별
-    user_type = models.CharField(max_length=10, choices=[('e', 'Enterprise'), ('i', 'Individual')]) #유저 등급
+    user_type = models.CharField(max_length=10, choices=[('e', 'Enterprise'), ('i', 'Individual'), ('a', "Admin")]) #유저 등급
     nickname = models.CharField(max_length=8, unique=True) #닉네임, 별명
     password = models.CharField(max_length=100)  # 비밀번호
 
