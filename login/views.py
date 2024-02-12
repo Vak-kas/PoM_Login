@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomTokenObtainPairSerializer
 
@@ -50,3 +51,8 @@ class RefreshTokenView(APIView):
         except TokenError as e:
             # 리프레시 토큰이 유효하지 않거나 만료된 경우
             return Response({'error': '토큰이 유효하지 않거나 확인할 수 없습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+def index(request):
+    return HttpResponse("안녕하세요 로그인에 오신것을 환영합니다.")
