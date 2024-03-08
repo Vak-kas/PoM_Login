@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+import datetime
 
 # Create your models here.
 
@@ -64,3 +65,15 @@ class Individual(models.Model):
 
     def __str__(self):
         return self.user.name
+
+
+
+
+class TempEmailVerify(models.Model):
+    email = models.EmailField(unique=True)
+    verification_code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_expired(self):
+        # 예를 들어, 인증 코드의 유효 시간을 1시간으로 설정
+        return self.created_at < (datetime.datetime.now() - datetime.timedelta(hours=1))
